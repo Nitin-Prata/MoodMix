@@ -1,4 +1,4 @@
-# Moodify: AI-Powered Emotion Detection with Spotify Integration
+# Moodify: An Emotion Based Mucis Recommendation System
 
 ## Overview
 
