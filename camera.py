@@ -72,14 +72,18 @@ class WebcamVideoStream:
     def stop(self):
         self.stopped = True
 
+
+
+
 class VideoCamera(object):
     def __init__(self):
         self.captured_frame = None
         self.video_stream = WebcamVideoStream(src=0).start()  # Start the video stream
 
     def get_frame(self):
-        global cap1
-        global df1
+        # Remove the global declaration and define df1 here
+        df1 = pd.DataFrame()  # Initialize df1 as an empty DataFrame
+
         image = self.video_stream.read()  # Read frame from the video stream
         image = cv2.resize(image, (600, 500))
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -93,10 +97,12 @@ class VideoCamera(object):
             maxindex = int(np.argmax(prediction))
             show_text[0] = maxindex
             cv2.putText(image, emotion_dict[maxindex], (x+20, y-60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-            df1 = music_rec()
+            
+            df1 = music_rec()  # Get the music recommendations based on the detected emotion
 
         ret, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes(), df1  # Return the image and the song recommendations
+
 
 
 def music_rec():
